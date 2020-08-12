@@ -360,9 +360,6 @@ public class ExperienceActivity extends BaseExperienceActivity implements Expone
    *
    */
 
-  /**
-   * TODO: inspect this code path
-   */
   public void startLoading() {
     mIsLoading = true;
     showOrReconfigureManagedAppSplashScreen(mManifest);

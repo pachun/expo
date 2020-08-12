@@ -7,6 +7,7 @@ import readline from 'readline';
 
 import * as Directories from '../Directories';
 import * as Packages from '../Packages';
+import { getNewestSDKVersionAsync } from '../ProjectVersions';
 
 type ActionOptions = {
   sdkVersion: string;
@@ -280,7 +281,9 @@ async function action(options: ActionOptions) {
   process.on('SIGINT', _exitHandler);
   process.on('SIGTERM', _exitHandler);
 
-  if (!options.sdkVersion) {
+  const sdkVersion = options.sdkVersion || (await getNewestSDKVersionAsync('android'));
+
+  if (!sdkVersion) {
     throw new Error('Must run with `--sdkVersion SDK_VERSION`');
   }
 
@@ -301,7 +304,7 @@ async function action(options: ActionOptions) {
     );
   }
 
-  if (match[1] !== options.sdkVersion) {
+  if (match[1] !== sdkVersion) {
     console.log(
       " 🔍  It looks like you're adding a new SDK version. Ignoring the `--packages` option and rebuilding all packages..."
     );
@@ -362,7 +365,7 @@ async function action(options: ActionOptions) {
   try {
     await _updateExpoViewAsync(
       packages.filter((pkg) => packagesToBuild.includes(pkg.name)),
-      options.sdkVersion
+      sdkVersion
     );
   } catch (e) {
     await _exitHandler();

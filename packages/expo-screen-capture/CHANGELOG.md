@@ -6,6 +6,8 @@
 
 ### 🎉 New features
 
+- Added permission to demonstrate dangerjs android check. ([#9708](https://github.com/expo/expo/pull/9708) by [@bycedric](https://github.com/bycedric))
+
 ### 🐛 Bug fixes
 
 ## 1.0.1 — 2020-05-29
